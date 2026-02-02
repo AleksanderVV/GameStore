@@ -7,8 +7,52 @@
  *
  * Replace them with your own styles or remove the file completely.
  */
-.wp-block-create-block-blocks-gamestore {
-  background-color: #21759b;
-  color: #fff;
-  padding: 2px;
+.wp-block-blocks-gamestore-block-header {
+  width: 100%;
+  background: var(--background-default, #FAFAFA);
+  color: var(--text-primary, #0E0D0F);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 2.1px;
+  text-transform: uppercase;
+  position: relative;
+}
+.wp-block-blocks-gamestore-block-header a {
+  text-decoration: none;
+}
+.wp-block-blocks-gamestore-block-header .inner-header {
+  padding: 0 32px;
+  display: flex;
+  height: 100px;
+  align-items: center;
+  justify-content: space-between;
+}
+.wp-block-blocks-gamestore-block-header .inner-header .right-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+.wp-block-blocks-gamestore-block-header .inner-header .right-section .header-search, .wp-block-blocks-gamestore-block-header .inner-header .right-section .header-mode-switcher {
+  cursor: pointer;
+}
+.wp-block-blocks-gamestore-block-header .inner-header .right-section .header-member-link a {
+  display: flex;
+  height: 40px;
+  padding: 4px 20px;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid var(--divider-main, rgba(14, 13, 15, 0.08));
+  color: var(--text-primary, #0E0D0F);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 12px;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+}
+.dark-mode-gamestore .wp-block-blocks-gamestore-block-header .inner-header .wp-block-group .wp-block-navigation .wp-block-navigation__container .wp-block-navigation-item.open-on-click .wp-block-navigation-submenu__toggle + .wp-block-navigation__submenu-icon {
+  background: url("data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\"><path d=\"M8.47021 10.7402L12.0002 14.2602L15.5302 10.7402\" stroke=\"white\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>");
 }
