@@ -74,6 +74,36 @@
 	  }
 	}
   }
+
+  @media (max-width: 1200px) and (min-width: 601px) {
+	header {
+	  .inner-header {
+		flex-wrap: wrap;
+		padding: 0 16px!important;
+
+		.wp-block-site-logo {
+		  order: 1;
+		}
+		.wp-block-group {
+		  order: 3;
+		  width: 100%;
+		  padding-left: 0;
+		  padding-right: 0;
+
+		  .wp-block-navigation-item__content {
+			font-size: 12px;
+		  }
+
+		  .wp-block-navigation .wp-block-navigation__container .wp-block-navigation__submenu-container {
+			padding-left: 16px;
+		  }
+		}
+		.right-section {
+		  order: 2;
+		}
+	  }		
+	}
+  }
   
   @media (min-width: 600px) {
 

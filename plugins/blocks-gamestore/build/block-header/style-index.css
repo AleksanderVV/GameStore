@@ -59,6 +59,30 @@
 .dark-mode-gamestore header .right-section > div img {
   filter: invert(1);
 }
+@media (max-width: 1200px) and (min-width: 601px) {
+  header .inner-header {
+    flex-wrap: wrap;
+    padding: 0 16px !important;
+  }
+  header .inner-header .wp-block-site-logo {
+    order: 1;
+  }
+  header .inner-header .wp-block-group {
+    order: 3;
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  header .inner-header .wp-block-group .wp-block-navigation-item__content {
+    font-size: 12px;
+  }
+  header .inner-header .wp-block-group .wp-block-navigation .wp-block-navigation__container .wp-block-navigation__submenu-container {
+    padding-left: 16px;
+  }
+  header .inner-header .right-section {
+    order: 2;
+  }
+}
 @media (min-width: 600px) {
   .wp-block-group {
     display: flex;
