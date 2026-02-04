@@ -27,3 +27,11 @@
  }
 
  add_action( 'wp_dashboard_setup', 'gamestore_remove_dashboard_widgets' );
+
+// Allow SVG uploads in WordPress
+function gamestore_allow_svg_uploads($mimes) {
+    $mimes['svg'] = 'image/svg+xml';
+    return $mimes;
+}
+add_filter('upload_mimes', 'gamestore_allow_svg_uploads');
+
