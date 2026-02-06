@@ -50,9 +50,14 @@ body .is-layout-constrained .wp-block-blocks-gamestore-block-hero {
 	  z-index: 2;
 	  padding-left: var(--wp--style--root--padding-left);
 	  padding-right: var(--wp--style--root--padding-right);
+
+	  @media screen and (max-width: 1588px) {
+		max-width: calc(100% - 48px);
+	  }
   
 	  .hero-title {
 		color: var(--white-contrast);
+		max-width: 700px;
   
 		strong {
 		  background: var(--accent-gradient, linear-gradient(90deg, #3DAFE2 0%, #6F76C0 100%));
@@ -77,6 +82,11 @@ body .is-layout-constrained .wp-block-blocks-gamestore-block-hero {
 	  justify-content: center;
 	  background: var(--mask-gradient-second, linear-gradient(270deg, rgba(250, 250, 250, 0.00) 0%, #FAFAFA 100%));
 	
+	  @media screen and (max-width: 1588px) {
+		padding-left: var(--wp--style--root--padding-left);
+    	padding-right: var(--wp--style--root--padding-right);
+	  }
+
 	  .slider-container {
 		width: 100%;
 		max-width: 1540px;
@@ -84,6 +94,10 @@ body .is-layout-constrained .wp-block-blocks-gamestore-block-hero {
 		margin-right: auto;
 		overflow: hidden;
 		box-sizing: border-box;
+
+		@media screen and (max-width: 1588px) {
+			margin-left: 0;
+		  }
   
 		.swiper-wrapper {
 		  display: flex;
