@@ -198,8 +198,8 @@
 			"core/post-content": {
 				"spacing": {
 					"margin": {
-						"top": "var(--wp--preset--spacing--60)",
-						"bottom": "var(--wp--preset--spacing--60)"
+						"top": "0",
+						"bottom": "0"
 					}
 				}
 			},
@@ -227,8 +227,8 @@
 			"core/post-template": {
 				"spacing": {
 					"padding": {
-						"top": "var(--wp--preset--spacing--50)",
-						"bottom": "var(--wp--preset--spacing--50)"
+						"top": "0",
+						"bottom": "0"
 					}
 				}
 			},

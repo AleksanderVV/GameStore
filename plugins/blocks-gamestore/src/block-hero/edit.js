@@ -24,22 +24,6 @@ const SlideItem = ({index, slide, onImageChange, onRemove}) => {
 		  multiple={false}
 		/>
 	  </div>
-	  {/* <div className='slide-item-image'>
-		<p>Dark Version Logo</p>
-		{slide.darkImage && <div className='image-box'><img src={slide.darkImage} alt="Slide image"  /></div>}
-		<MediaPlaceholder
-		  icon="format-image"
-		  onSelect={(media) => onImageChange(media.url, index, "darkImage")}
-		  onSelectURL={(url) => onImageChange(url, index, "darkImage")}
-		  labels={{
-			title: 'Slide Dark Image',
-			instructions: 'Upload an image for the slide.'
-		  }}
-		  accept='image/*'
-		  allowedTypes={['image']}
-		  multiple={false}
-		/>
-	  </div> */}
 	  <Button className='components-button is-destructive' onClick={() => onRemove(index)}>Remove</Button>
 	</div>
   )
@@ -59,8 +43,7 @@ export default function Edit({attributes, setAttributes}) {
 	}
   
 	const addSlide = () => {
-		const newSlide = { lightImage: '' };
-	//   const newSlide = { lightImage: '', darkImage: '' };
+	  const newSlide = { lightImage: '' };
 	  const updateSlides = [...slides, newSlide];
 	  setSlides(updateSlides);
 	  setAttributes({ slides: updateSlides });
@@ -178,7 +161,6 @@ export default function Edit({attributes, setAttributes}) {
 							{slides.map((slide, index) => (
 							<div key={index} className='swiper-slide slide-item'>
 								<img src={slide.lightImage} alt="Logo" className='light-logo' />
-								{/* <img src={slide.darkImage} alt="Logo" className='dark-logo'/> */}
 							</div>
 							))}
 						</div>
