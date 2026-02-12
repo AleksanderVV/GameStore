@@ -44,7 +44,10 @@
 		},
 		"slides": {
 			"type": "array",
-			"default": []
+			"default": [],
+			"items": {
+				"type": "object"
+			}
 		}
 	},
 	"textdomain": "blocks-gamestore",

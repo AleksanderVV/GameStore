@@ -125,6 +125,9 @@ return array(
 				'type' => 'array',
 				'default' => array(
 					
+				),
+				'items' => array(
+					'type' => 'object'
 				)
 			)
 		),

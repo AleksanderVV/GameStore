@@ -8,7 +8,7 @@
   \***********************************/
 (module) {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"blocks-gamestore/block-hero","version":"0.1.0","title":"Hero Block","category":"gamestore","icon":"smiley","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":false},"attributes":{"title":{"type":"string","source":"html","selector":".hero-title"},"description":{"type":"string","source":"html","selector":".hero-description"},"link":{"type":"string","source":"attribute","selector":"a","attribute":"href"},"linkAnchor":{"type":"string","source":"html","selector":"a"},"video":{"type":"string"},"image":{"type":"string"},"isVideo":{"type":"boolean"},"slides":{"type":"array","default":[]}},"textdomain":"blocks-gamestore","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"blocks-gamestore/block-hero","version":"0.1.0","title":"Hero Block","category":"gamestore","icon":"smiley","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":false},"attributes":{"title":{"type":"string","source":"html","selector":".hero-title"},"description":{"type":"string","source":"html","selector":".hero-description"},"link":{"type":"string","source":"attribute","selector":"a","attribute":"href"},"linkAnchor":{"type":"string","source":"html","selector":"a"},"video":{"type":"string"},"image":{"type":"string"},"isVideo":{"type":"boolean"},"slides":{"type":"array","default":[],"items":{"type":"object"}}},"textdomain":"blocks-gamestore","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
 
 /***/ },
 
@@ -36,6 +36,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/* =========================
+   Slide Item Component
+========================= */
 
 const SlideItem = ({
   index,
@@ -47,25 +50,24 @@ const SlideItem = ({
     className: "slide-item",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
       className: "slide-item-image",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
-        children: "Light Version Logo"
-      }), slide.lightImage && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      children: [slide.lightImage && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         className: "image-box",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
           src: slide.lightImage,
-          alt: "Slide image"
+          alt: ""
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.MediaPlaceholder, {
-        icon: "format-image",
-        onSelect: media => onImageChange(media.url, index, "lightImage"),
-        onSelectURL: url => onImageChange(url, index, "lightImage"),
-        labels: {
-          title: 'Slide Light Image',
-          instructions: 'Upload an image for the slide.'
-        },
-        accept: "image/*",
-        allowedTypes: ['image'],
-        multiple: false
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.MediaUploadCheck, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.MediaUpload, {
+          onSelect: media => onImageChange(media.url, index, "lightImage"),
+          allowedTypes: ['image'],
+          render: ({
+            open
+          }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+            className: "components-button is-secondary",
+            onClick: open,
+            children: slide.lightImage ? 'Replace' : 'Upload'
+          })
+        })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
       className: "components-button is-destructive",
@@ -74,6 +76,11 @@ const SlideItem = ({
     })]
   });
 };
+
+/* =========================
+   Main Edit Component
+========================= */
+
 function Edit({
   attributes,
   setAttributes
@@ -86,32 +93,23 @@ function Edit({
     video,
     image,
     isVideo,
-    slides: initialSlides
+    slides = []
   } = attributes;
   const [isVideoUpload, setIsVideoUpload] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useState)(isVideo);
-  const [slides, setSlides] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.useState)(initialSlides || []);
+
+  /* =========================
+     Slide Logic
+  ========================= */
+
   const onSlideChange = (updatedSlide, index) => {
     const updatedSlides = [...slides];
     updatedSlides[index] = updatedSlide;
-    setSlides(updatedSlides);
     setAttributes({
       slides: updatedSlides
     });
   };
-  const addSlide = () => {
-    const newSlide = {
-      lightImage: ''
-    };
-    const updateSlides = [...slides, newSlide];
-    setSlides(updateSlides);
-    setAttributes({
-      slides: updateSlides
-    });
-  };
   const removeSlide = index => {
-    const updatedSlides = [...slides];
-    updatedSlides.splice(index, 1);
-    setSlides(updatedSlides);
+    const updatedSlides = slides.filter((_, i) => i !== index);
     setAttributes({
       slides: updatedSlides
     });
@@ -172,25 +170,27 @@ function Edit({
         }) : image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
           src: image,
           alt: "Uploaded"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.MediaUpload, {
-          onSelect: media => {
-            if (isVideoUpload) {
-              setAttributes({
-                video: media.url
-              });
-            } else {
-              setAttributes({
-                image: media.url
-              });
-            }
-          },
-          type: isVideoUpload ? ['video'] : ['image'],
-          render: ({
-            open
-          }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
-            className: "components-button is-secondary media-upload",
-            onClick: open,
-            children: isVideoUpload ? 'Upload Video' : 'Upload Image'
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.MediaUploadCheck, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.MediaUpload, {
+            onSelect: media => {
+              if (isVideoUpload) {
+                setAttributes({
+                  video: media.url
+                });
+              } else {
+                setAttributes({
+                  image: media.url
+                });
+              }
+            },
+            allowedTypes: isVideoUpload ? ['video'] : ['image'],
+            render: ({
+              open
+            }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+              className: "components-button is-secondary media-upload",
+              onClick: open,
+              children: isVideoUpload ? 'Upload Video' : 'Upload Image'
+            })
           })
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.PanelBody, {
@@ -200,24 +200,40 @@ function Edit({
           slide: slide,
           onImageChange: handleImageChange,
           onRemove: removeSlide
-        }, index)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
-          className: "components-button is-primary",
-          onClick: addSlide,
-          children: "Add Slide"
+        }, index)), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.MediaUploadCheck, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.MediaUpload, {
+            onSelect: mediaItems => {
+              const newSlides = mediaItems.map(item => ({
+                lightImage: item.url
+              }));
+              setAttributes({
+                slides: [...slides, ...newSlides]
+              });
+            },
+            allowedTypes: ['image'],
+            multiple: true,
+            gallery: true,
+            render: ({
+              open
+            }) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+              className: "components-button is-primary",
+              onClick: open,
+              children: "Add Slides"
+            })
+          })
         })]
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
       ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps)(),
       children: [video && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("video", {
         className: "video-bg",
-        loop: "loop",
-        autoplay: "",
+        loop: true,
+        autoPlay: true,
         muted: true,
-        playsinline: true,
+        playsInline: true,
         width: "100%",
         height: "100%",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("source", {
-          className: "source-element",
           src: video,
           type: "video/mp4"
         })
@@ -248,7 +264,7 @@ function Edit({
           className: "hero-button shadow",
           children: linkAnchor
         })]
-      }), slides && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      }), slides.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         className: "hero-slider",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
           className: "slider-container",
@@ -258,7 +274,7 @@ function Edit({
               className: "swiper-slide slide-item",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
                 src: slide.lightImage,
-                alt: "Logo",
+                alt: "",
                 className: "light-logo"
               })
             }, index))
