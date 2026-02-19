@@ -15,6 +15,17 @@ body .is-layout-constrained .wp-block-blocks-gamestore-block-recent-news {
   background-size: cover;
 }
 
+.wp-block-blocks-gamestore-block-recent-news::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, var(--background-default) 0%, var(--background-80) 50.06%, var(--background-default) 100%);
+  z-index: 0;
+}
+
 .wp-block-blocks-gamestore-block-recent-news h2 {
   line-height: 1.4;
   background: var(--accent-gradient);
