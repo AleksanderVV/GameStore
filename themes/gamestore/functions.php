@@ -27,13 +27,21 @@ function gamestore_google_fonts() {
 }
 
 function gamestore_google_fonts_script() {
-	wp_enqueue_style(
-		'gamestore-google-fonts',
-		gamestore_google_fonts(),
-		array(),
-		null
-	);
+	wp_enqueue_style('gamestore-google-fonts', gamestore_google_fonts(), array(), '1.0.0' );
 }
 
 add_action( 'wp_enqueue_scripts', 'gamestore_google_fonts_script' );
 
+// Load assets for the block editor.
+
+function gamestore_gutenberg_styles() {
+	wp_enqueue_style('gamestore-google-fonts', gamestore_google_fonts(), array(), '1.0.0' );
+	
+	if(is_admin()){
+		add_editor_style('/assets/css/editor-style.css');
+		// add_editor_style('/assets/css/woo-cart.css');
+		wp_enqueue_style('gamestore-editor-style',get_template_directory_uri() . '/assets/css/editor-style.css',['gamestore-google-fonts'],wp_get_theme()->get( 'Version' ));
+		// wp_enqueue_style('woo-cart-editor-style',get_template_directory_uri() . '/assets/css/woo-cart.css',[],wp_get_theme()->get( 'Version' ));
+	  }
+}
+add_action( 'enqueue_block_editor_assets', 'gamestore_gutenberg_styles' );
