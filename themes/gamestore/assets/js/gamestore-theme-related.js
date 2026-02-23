@@ -26,3 +26,122 @@ if(styleToggle){
 if(styleMode === 'dark'){
   enableDarkStyle();
 }
+
+document.addEventListener('DOMContentLoaded', function(){
+  const searchContainer = document.querySelector('.popup-games-search-container');
+  const searchResults = document.querySelector('.popup-search-results');
+  const searchInput = document.getElementById('popup-search-input');
+  const openButton = document.querySelector('.header-search');
+  const closeButton = document.getElementById('close-search');
+  const titleElement = document.querySelector('.search-popup-title');
+
+  openButton.addEventListener('click', function(){
+    searchContainer.style.display = 'block';
+    titleElement.textContent = 'You might be interested';
+
+    showPlaceholders();
+
+    fetch(gamestore_params.ajaxurl, {
+      method: "POST",
+      header: {
+        'Content-Type': "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        action: 'load_latest_games'
+      })
+    })
+    .then(response =>response.json())
+    .then(data => {
+      if(data.success){
+        renderGames(data.data);
+      }
+    })
+    .catch(error => console.log('Error fetching latest games', error));
+  });
+
+  searchInput.addEventListener('input', function(){
+    const searchItem = searchInput.value;
+    titleElement.textContent = 'Search Results';
+
+    showPlaceholders();
+    
+    fetch(gamestore_params.ajaxurl, {
+      method: "POST",
+      header: {
+        'Content-Type': "application/x-www-form-urlncoded",
+      },
+      body: new URLSearchParams({
+        action: 'search_games_by_title',
+        search: searchItem
+      })
+    })
+    .then(response =>response.json())
+    .then(data => {
+      if(data.success && data.data.length > 0){
+        titleElement.textContent = 'Search Results';
+        renderGames(data.data);
+      } else {
+        titleElement.textContent = 'Nothing was found. You might be interested in';
+        showPlaceholders();
+        loadDefaultGames();
+      }
+    })
+    .catch(error => console.log('Error fetching latest games', error));
+  
+
+  });
+
+  closeButton.addEventListener('click', function(){
+    searchContainer.style.display = 'none';
+    searchResults.innerHTML = '';
+   });
+
+   function showPlaceholders(){
+    searchResults.innerHTML = '';
+    for(let i = 0; i < 12; i++){
+      const placeholder = document.createElement('div');
+      placeholder.className = 'game-placeholder';
+      searchResults.appendChild(placeholder);
+    }
+  }
+  
+  function renderGames(games){
+    searchResults.innerHTML = '';
+    games.forEach(function(game){
+      const gameDiv = document.createElement('div');
+      gameDiv.className = 'game-result';
+  
+      gameDiv.innerHTML = `
+        <a href="${game.link}">
+          <div class="game-featured-image">${game.thumbnail}</div>
+          <div class="game-meta">
+            <div class="game-price">${game.price}</div>
+            <h3>${game.title}</h3>
+            <div class="game-platforms">${game.platforms}</div>
+          </div>
+        </a>
+      `;
+  
+      searchResults.appendChild(gameDiv);
+    });
+  }
+
+  function loadDefaultGames(){
+    fetch(gamestore_params.ajaxurl, {
+      method: "POST",
+      header: {
+        'Content-Type': "application/x-www-form-urlncoded",
+      },
+      body: new URLSearchParams({
+        action: 'load_latest_games'
+      })
+    })
+    .then(response =>response.json())
+    .then(data => {
+      if(data.success){
+        renderGames(data.data);
+      }
+    })
+    .catch(error => console.log('Error fetching latest games', error));
+  }
+});

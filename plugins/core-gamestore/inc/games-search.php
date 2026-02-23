@@ -18,3 +18,82 @@ function gamestore_footer_search_popup(){
   <?php
 }
 add_action('wp_footer','gamestore_footer_search_popup');
+
+// Load Latest 18 Games
+function load_latest_games(){
+    $args = array(
+      'post_type' => 'product',
+      'posts_per_page' => 18,
+      'post_status' => 'publish',
+      'orderby' => 'rand',
+    );
+    $games_query = new WP_Query($args);
+  
+    $result = array();
+    if($games_query->have_posts()){
+      while($games_query->have_posts()){
+        $games_query->the_post();
+        
+        $product = wc_get_product(get_the_ID());
+  
+        $platforms_html = '';
+        $platforms = array('Xbox', 'PC', 'PlayStation');
+        foreach($platforms as $platform){
+          $platforms_html .= (get_post_meta(get_the_ID(), '_platform_'.strtolower($platform), true ) == 'yes') ? '<div class="platform_'.strtolower($platform).'"></div>' : null;
+        }
+  
+        $result[] = array(
+          'link' => get_the_permalink(),
+          'thumbnail' => $product->get_image('full'),
+          'price' => $product->get_price_html(),
+          'title' => get_the_title(),
+          'platforms' => $platforms_html
+        );
+      }
+    }
+    wp_reset_postdata();
+  
+    wp_send_json_success($result);
+  }
+  add_action('wp_ajax_load_latest_games','load_latest_games');
+  add_action('wp_ajax_nopriv_load_latest_games','load_latest_games');
+  
+  // Search by title
+  function search_games_by_title(){
+    $search_term = isset($_POST['search']) ? sanitize_text_field($_POST['search']) : '';
+    $args = array(
+      'post_type' => 'product',
+      'posts_per_page' => -1,
+      'post_status' => 'publish',
+      's' => $search_term
+    );
+    $games_query = new WP_Query($args);
+  
+    $result = array();
+    if($games_query->have_posts()){
+      while($games_query->have_posts()){
+        $games_query->the_post();
+        
+        $product = wc_get_product(get_the_ID());
+  
+        $platforms_html = '';
+        $platforms = array('Xbox', 'PC', 'PlayStation');
+        foreach($platforms as $platform){
+          $platforms_html .= (get_post_meta(get_the_ID(), '_platform_'.strtolower($platform), true ) == 'yes') ? '<div class="platform_'.strtolower($platform).'"></div>' : null;
+        }
+  
+        $result[] = array(
+          'link' => get_the_permalink(),
+          'thumbnail' => $product->get_image('full'),
+          'price' => $product->get_price_html(),
+          'title' => get_the_title(),
+          'platforms' => $platforms_html,
+        );
+      }
+    }
+    wp_reset_postdata();
+  
+    wp_send_json_success($result);
+  }
+  add_action('wp_ajax_search_games_by_title','search_games_by_title');
+  add_action('wp_ajax_nopriv_search_games_by_title','search_games_by_title');

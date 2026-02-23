@@ -12,6 +12,7 @@ services:
       - 3306:3306
     volumes:
       - ./.srv/database:/var/lib/mysql
+      - ./mysql-conf/my.cnf:/etc/mysql/conf.d/my.cnf
 
   wordpress:
     image: wordpress:latest

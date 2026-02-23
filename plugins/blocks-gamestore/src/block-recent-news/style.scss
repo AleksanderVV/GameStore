@@ -4,6 +4,8 @@ body .is-layout-constrained .wp-block-blocks-gamestore-block-recent-news {
 	margin-left: calc(var(--wp--style--root--padding-left) * -1)!important;
 	margin-top: clamp(3.75rem, calc(2.77rem + 4.92vw), 7.5rem)!important;
 	margin-bottom: clamp(3.75rem, calc(2.77rem + 4.92vw), 7.5rem)!important;
+	padding-left: 16px;
+	padding-right: 16px;
   }
   .wp-block-blocks-gamestore-block-recent-news {
 	text-align: center; 
@@ -51,6 +53,7 @@ body .is-layout-constrained .wp-block-blocks-gamestore-block-recent-news {
 	  position: relative;
 	  z-index: 1;
 	  display: flex;
+	  flex-wrap: wrap;
 	  align-items: flex-start;
 	  justify-content: center;
 	  gap: 48px;
@@ -68,6 +71,15 @@ body .is-layout-constrained .wp-block-blocks-gamestore-block-recent-news {
 		flex-direction: column;
 		gap: 24px;
 		align-items: center;
+
+		@media (max-width: 1200px) {
+			width: calc(50% - 24px);
+		}
+
+		@media (max-width: 768px) {
+			width: 100%;
+			max-width: 500px;
+		}
   
 		&::before {
 		  content: "";

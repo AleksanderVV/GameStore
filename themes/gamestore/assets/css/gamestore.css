@@ -311,8 +311,9 @@ input[type="submit"] {
 .search-container {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: calc(100% - 32px);
   height: 100%;
+  padding: 0 16px;
 }
 .search-results-wrapper {
   max-width: 100%;
@@ -326,12 +327,13 @@ input[type="submit"] {
 }
 .popup-search-results {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 16px;
   row-gap:24px;
 }
 .popup-search-results > div {
-  width: calc(16.66666% - 13.33333px);
+  width: 243px;
 }
 .game-placeholder {
   border-radius: 8px;

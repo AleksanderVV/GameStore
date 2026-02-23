@@ -172,5 +172,40 @@ return array(
 		'editorStyle' => 'file:./index.css',
 		'style' => 'file:./style-index.css',
 		'viewScript' => 'file:./view.js'
+	),
+	'block-subscribe' => array(
+		'$schema' => 'https://schemas.wp.org/trunk/block.json',
+		'apiVersion' => 3,
+		'name' => 'blocks-gamestore/subscribe',
+		'version' => '0.1.0',
+		'title' => 'Subscribe Block',
+		'category' => 'gamestore',
+		'icon' => 'book',
+		'description' => 'A block to display a subscription form for users to subscribe to updates or newsletters related to the game store.',
+		'example' => array(
+			
+		),
+		'supports' => array(
+			'html' => false
+		),
+		'attributes' => array(
+			'title' => array(
+				'type' => 'string'
+			),
+			'description' => array(
+				'type' => 'string'
+			),
+			'image' => array(
+				'type' => 'string'
+			),
+			'shortcode' => array(
+				'type' => 'string'
+			)
+		),
+		'textdomain' => 'blocks-gamestore',
+		'editorScript' => 'file:./index.js',
+		'editorStyle' => 'file:./index.css',
+		'style' => 'file:./style-index.css',
+		'viewScript' => 'file:./view.js'
 	)
 );
