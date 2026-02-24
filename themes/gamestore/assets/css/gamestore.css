@@ -390,6 +390,12 @@ input[type="submit"] {
 }
 .game-result .game-meta .game-price del {
   order: 1;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+}
+.popup-games-search-container .game-result .game-meta .game-price del {
+  order: 1;
   color: rgba(255, 255, 255, 0.70);
   font-size: 14px;
   font-weight: 500;

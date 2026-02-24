@@ -14,3 +14,4 @@
  define('GAMESTORE_PLUGIN_PATH', plugin_dir_path(__FILE__));
 
  require_once(GAMESTORE_PLUGIN_PATH . '/inc/games-search.php');
+ require_once(GAMESTORE_PLUGIN_PATH . '/inc/games-meta.php');
