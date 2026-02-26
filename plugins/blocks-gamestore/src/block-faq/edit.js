@@ -33,6 +33,7 @@ const FAQItem = ({index, faq, onTitleChange, onDescriptionChange, onRemove}) => 
 export default function Edit({ attributes, setAttributes }) {
   const { title, margin } = attributes;
   const [faqs, setFaqs] = useState(attributes.faqs || []);
+  const [openIndex, setOpenIndex] = useState(null);
 
    const onFAQChange = (updatedFAQ, index) => {
     const updatedFaqs = [...faqs];
@@ -101,16 +102,24 @@ export default function Edit({ attributes, setAttributes }) {
             />
           
             {faqs.map((faq, index) => (
-              <div key={index} className="faq-item">
+              <div 
+                key={index}
+                className={`faq-item ${openIndex === index ? 'open' : ''}`}
+              >
                 <RichText
                   tagName="div"
-                  className="faq-item-title"
+                  className={`faq-item-title ${openIndex === index ? 'open' : ''}`}
                   value={faq.title}
+                  onClick={() =>
+                    setOpenIndex(openIndex === index ? null : index)
+                  }
                   onChange={(newTitle) => handleTitleChange(newTitle, index)}
                 />
                 <RichText
                   tagName="div"
-                  className="faq-item-description"
+                  className={`faq-item-description ${
+                    openIndex === index ? 'show' : ''
+                  }`}
                   value={faq.description}
                   onChange={(newDescription) => handleDescriptionChange(newDescription, index)}
                 />

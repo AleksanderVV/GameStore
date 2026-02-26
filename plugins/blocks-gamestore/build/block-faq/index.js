@@ -70,6 +70,7 @@ function Edit({
     margin
   } = attributes;
   const [faqs, setFaqs] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(attributes.faqs || []);
+  const [openIndex, setOpenIndex] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
   const onFAQChange = (updatedFAQ, index) => {
     const updatedFaqs = [...faqs];
     updatedFaqs[index] = updatedFAQ;
@@ -148,15 +149,16 @@ function Edit({
             title
           })
         }), faqs.map((faq, index) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-          className: "faq-item",
+          className: `faq-item ${openIndex === index ? 'open' : ''}`,
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.RichText, {
             tagName: "div",
-            className: "faq-item-title",
+            className: `faq-item-title ${openIndex === index ? 'open' : ''}`,
             value: faq.title,
+            onClick: () => setOpenIndex(openIndex === index ? null : index),
             onChange: newTitle => handleTitleChange(newTitle, index)
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.RichText, {
             tagName: "div",
-            className: "faq-item-description",
+            className: `faq-item-description ${openIndex === index ? 'show' : ''}`,
             value: faq.description,
             onChange: newDescription => handleDescriptionChange(newDescription, index)
           })]
@@ -193,42 +195,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit */ "./src/block-faq/edit.js");
 /* harmony import */ var _save__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./save */ "./src/block-faq/save.js");
 /* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./block.json */ "./src/block-faq/block.json");
-/**
- * Registers a new block provided a unique name and an object defining its behavior.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
- */
-
-
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * All files containing `style` keyword are bundled together. The code used
- * gets applied both to the front of your site and to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
-
-
-/**
- * Internal dependencies
- */
 
 
 
 
-/**
- * Every block starts by registering a new block type definition.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
- */
+
 (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_4__.name, {
-  /**
-   * @see ./edit.js
-   */
   edit: _edit__WEBPACK_IMPORTED_MODULE_2__["default"],
-  /**
-   * @see ./save.js
-   */
   save: _save__WEBPACK_IMPORTED_MODULE_3__["default"]
 });
 
