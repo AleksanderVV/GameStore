@@ -47,5 +47,6 @@ function create_block_blocks_gamestore_block_init() {
 		'render_callback' => 'view_block_featured_products',
 	] );
 	register_block_type( __DIR__ . "/build/block-cta" );
+	register_block_type( __DIR__ . "/build/block-faq" );
 }
 add_action( 'init', 'create_block_blocks_gamestore_block_init' );
