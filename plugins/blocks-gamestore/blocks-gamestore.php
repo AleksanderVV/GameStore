@@ -13,6 +13,7 @@
  * @package CreateBlock
  */
 
+ // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -21,6 +22,7 @@ define( 'BLOCKS_GAMESTORE_PATH', plugin_dir_path( __FILE__ ) );
 
 require_once(BLOCKS_GAMESTORE_PATH . 'blocks.php');
 
+// Register block categories
 add_filter('block_categories_all', function ($categories) {
 	return array_merge($categories, [
 		[
@@ -30,10 +32,16 @@ add_filter('block_categories_all', function ($categories) {
 	]);
 });
 
+// Register blocks
 function create_block_blocks_gamestore_block_init() {
 
 	register_block_type( __DIR__ . "/build/block-header" );
+	register_block_type( __DIR__ . "/build/block-footer" );
+
 	register_block_type( __DIR__ . "/build/block-hero" );
+	register_block_type( __DIR__ . "/build/block-cta" );
+	register_block_type( __DIR__ . "/build/block-faq" );
+
 	register_block_type( __DIR__ . "/build/block-games-line", [
 		'render_callback' => 'view_block_games_line',
 	] );
@@ -46,7 +54,6 @@ function create_block_blocks_gamestore_block_init() {
 	register_block_type( __DIR__ . "/build/block-featured-products", [
 		'render_callback' => 'view_block_featured_products',
 	] );
-	register_block_type( __DIR__ . "/build/block-cta" );
-	register_block_type( __DIR__ . "/build/block-faq" );
+
 }
 add_action( 'init', 'create_block_blocks_gamestore_block_init' );
