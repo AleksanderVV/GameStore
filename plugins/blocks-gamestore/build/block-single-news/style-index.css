@@ -89,6 +89,7 @@
 }
 .wp-block-blocks-gamestore-single-news .news-container .news-content {
   width: calc(100% - 248px);
+  color: var(--text-primary, #0E0D0F);
 }
 .wp-block-blocks-gamestore-single-news .news-container .news-content p, .wp-block-blocks-gamestore-single-news .news-container .news-content img {
   margin-top: 24px;

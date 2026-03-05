@@ -95,6 +95,7 @@
     }
     .news-content {
       width: calc(100% - 248px);
+      color: var(--text-primary, #0E0D0F);
 
       p,img {
         margin-top: 24px;
