@@ -29,9 +29,10 @@ services:
     ports:
       - 8000:80
     volumes:
-      - ./.srv/wordpress:/var/www/html
+      - wordpress-core:/var/www/html
       - ./themes:/var/www/html/wp-content/themes/
-      - ./plugins:/var/www/html/wp-content/plugins/
+      - ./plugins/blocks-gamestore/:/var/www/html/wp-content/plugins/blocks-gamestore/
+      - ./plugins/core-gamestore/:/var/www/html/wp-content/plugins/core-gamestore/
       - ./mu-plugins:/var/www/html/wp-content/mu-plugins/
       - ./.srv/custom/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     depends_on:
@@ -51,3 +52,6 @@ services:
       - mysql
     links:
       - mysql
+
+volumes:
+  wordpress-core:
